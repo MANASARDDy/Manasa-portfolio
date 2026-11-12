@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manasa Reddy | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+ 
+    <style>
+        :root {
+            --green: #65ae80;
+            --green-dark: #6ba34f;
+            --teal: #4fa9a3;
+            --ink: #2b2f33;
+            --muted: #6b7280;
+            --line: #e8ecef;
+            --card: #ffffff;
+        }
+ 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+ 
+        body {
+            font-family: "Poppins", Arial, sans-serif;
+            color: var(--ink);
+            background: linear-gradient(135deg, var(--teal) 0%, var(--green) 55%, #d484a1 100%);
+            min-height: 100vh;
+            padding: 30px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+ 
+        svg.i {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
+ 
+        /* ---------- App layout ---------- */
+        .app {
+            width: 100%;
+            max-width: 1180px;
+            height: min(720px, calc(100vh - 60px));
+            min-height: 600px;
+            display: grid;
+            grid-template-columns: 82px 370px 1fr;
+            gap: 18px;
+        }
+ 
+        /* ---------- Icon navigation ---------- */
+        .sidebar {
+            background: var(--card);
+            border-radius: 6px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .12);
+            padding: 8px 0;
+            align-self: start;
+        }
+ 
+        .sidebar button {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 14px 4px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: var(--ink);
+            font-family: inherit;
+            font-size: 10.5px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+ 
+        .sidebar button:hover,
+        .sidebar button.active {
+            color: var(--green-dark);
+        }
+ 
+        /* ---------- Profile card ---------- */
+        .profile {
+            background: var(--card);
+            border-radius: 6px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .12);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+ 
+        .photo {
+            height: 360px;
+            background: linear-gradient(160deg, #cfd8dc, #eceff1);
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 88%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            font-weight: 600;
+            color: #90a4ae;
+        }
+ 
+        .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+        }
+ 
+        .profile-info {
+            text-align: center;
+            padding: 6px 20px 0;
+            flex: 1;
+        }
+ 
+        .profile-info h1 {
+            font-size: 25px;
+            font-weight: 500;
+            letter-spacing: .5px;
+            line-height: 1.25;
+        }
+ 
+        .role {
+            color: var(--green);
+            font-size: 14px;
+            margin: 6px 0 16px;
+        }
+ 
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+ 
+        .socials a {
+            color: var(--ink);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+ 
+        .socials a:hover {
+            background: var(--green);
+            color: white;
+        }
+ 
+        .socials svg.i {
+            width: 17px;
+            height: 17px;
+        }
+ 
+        .profile-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-top: 1px solid var(--line);
+        }
+ 
+        .profile-actions a,
+        .profile-actions button {
+            background: none;
+            border: none;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            color: var(--ink);
+            text-decoration: none;
+            padding: 20px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+ 
+        .profile-actions a + button {
+            border-left: 1px solid var(--line);
+        }
+ 
+        .profile-actions a:hover,
+        .profile-actions button:hover {
+            color: var(--green-dark);
+        }
+ 
+        .profile-actions svg.i {
+            width: 15px;
+            height: 15px;
+        }
+ 
+        /* ---------- Content panel ---------- */
+        .panel {
+            background: var(--card);
+            border-radius: 6px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .12);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+ 
+        .page {
+            display: none;
+        }
+ 
+        .page.active {
+            display: block;
+        }
+ 
+        .block {
+            padding: 28px 34px;
+            border-bottom: 1px solid var(--line);
+        }
+ 
+        .block:last-child {
+            border-bottom: none;
+        }
+ 
+        .block h2 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+ 
+        .block h2::first-letter {
+            color: var(--green);
+        }
+ 
+        .block p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #4b5259;
+        }
+ 
+        .two-col {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 34px;
+        }
+ 
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 13.5px;
+        }
+ 
+        .info-row:last-child {
+            border-bottom: none;
+        }
+ 
+        .chip {
+            background: var(--green);
+            color: white;
+            font-size: 12px;
+            padding: 2px 9px;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+ 
+        .info-row span:last-child {
+            text-align: right;
+            color: #4b5259;
+        }
+ 
+        /* services */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 26px;
+        }
+ 
+        .service {
+            text-align: center;
+        }
+ 
+        .service .badge {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: var(--green);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 14px;
+        }
+ 
+        .service .badge svg.i {
+            width: 26px;
+            height: 26px;
+        }
+ 
+        .service h3 {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+ 
+        .service p {
+            font-size: 13px;
+            line-height: 1.7;
+        }
+ 
+        /* timeline / education */
+        .entry {
+            border-left: 3px solid var(--green);
+            padding: 2px 0 2px 18px;
+        }
+ 
+        .entry h3 {
+            font-size: 15px;
+            font-weight: 500;
+        }
+ 
+        .entry .meta {
+            color: var(--green-dark);
+            font-size: 13px;
+            margin: 2px 0 6px;
+        }
+ 
+        /* projects */
+        .project {
+            padding: 18px 0;
+            border-bottom: 1px solid var(--line);
+        }
+ 
+        .project:first-of-type {
+            padding-top: 0;
+        }
+ 
+        .project:last-of-type {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+ 
+        .project h3 {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+ 
+        /* tags (skills, certificates, project tech) */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 10px 0;
+        }
+ 
+        .tags span {
+            background: #eaf7ec;
+            color: var(--green-dark);
+            font-size: 12px;
+            padding: 3px 10px;
+            border-radius: 3px;
+        }
+ 
+        /* contact */
+        .contact-list {
+            list-style: none;
+            margin-bottom: 22px;
+        }
+ 
+        .contact-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+ 
+        .contact-list svg.i {
+            color: var(--green-dark);
+        }
+ 
+        .contact-list a {
+            color: var(--ink);
+        }
+ 
+        .contact-list a:hover {
+            color: var(--green-dark);
+        }
+ 
+        form label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            margin: 12px 0 5px;
+        }
+ 
+        form input,
+        form textarea {
+            width: 100%;
+            padding: 11px 13px;
+            border: 1px solid #d5dbe0;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+ 
+        form textarea {
+            resize: vertical;
+        }
+ 
+        form button {
+            margin-top: 16px;
+            background: var(--green);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 11px 24px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+ 
+        form button:hover {
+            background: var(--green-dark);
+        }
+ 
+        #contactResult {
+            margin-top: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--green-dark);
+        }
+ 
+        :focus-visible {
+            outline: 3px solid #1f6f3a;
+            outline-offset: 2px;
+        }
+ 
+        /* ---------- Tablet / mobile ---------- */
+        @media (max-width: 1000px) {
+            body {
+                display: block;
+                padding: 14px;
+            }
+ 
+            .app {
+                height: auto;
+                min-height: 0;
+                grid-template-columns: 1fr;
+                max-width: 560px;
+                margin: 0 auto;
+            }
+ 
+            .sidebar {
+                display: flex;
+                overflow-x: auto;
+                padding: 4px;
+                position: sticky;
+                top: 8px;
+                z-index: 5;
+                align-self: stretch;
+            }
+ 
+            .sidebar button {
+                flex: 1;
+                min-width: 68px;
+            }
+ 
+            .panel {
+                overflow: visible;
+            }
+        }
+ 
+        @media (max-width: 560px) {
+            .block {
+                padding: 22px 20px;
+            }
+ 
+            .two-col {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+ 
+            .photo {
+                height: 320px;
+            }
+        }
+    </style>
+</head>
+ 
+<body>
+ 
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+    <symbol id="i-bars" viewBox="0 0 24 24"><line x1="4" y1="20" x2="4" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="20" y1="20" x2="20" y2="14"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4"/></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+</svg>
+ 
+<div class="app">
+ 
+    <!-- Icon navigation -->
+    <nav class="sidebar" aria-label="Main">
+        <button class="active" data-page="about"><svg class="i"><use href="#i-user"/></svg>About</button>
+        <button data-page="education"><svg class="i"><use href="#i-book"/></svg>Education</button>
+        <button data-page="skills"><svg class="i"><use href="#i-bars"/></svg>Skills</button>
+        <button data-page="projects"><svg class="i"><use href="#i-eye"/></svg>Projects</button>
+        <button data-page="contact"><svg class="i"><use href="#i-send"/></svg>Contact</button>
+    </nav>
+ 
+    <!-- Profile card -->
+    <aside class="profile">
+        <div class="photo">
+            <!-- Put  peg in the same folder as this file -->
+            <img src="./Media.jpg"
+  alt="Mukkamalla Manasa Reddy" onerror="this.remove()">
+        </div>
+ 
+        <div class="profile-info">
+            <h1>Mukkamalla<br>Manasa Reddy</h1>
+            <p class="role">Software Engineer</p>
+ 
+            <div class="socials">
+                <a href="https://www.linkedin.com/in/mukkamalla-manasa-reddy-b2181527a" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="i"><use href="#i-linkedin"/></svg></a>
+                <a href="mailto:reddymanasa0271@gmail.com" aria-label="Email"><svg class="i"><use href="#i-mail"/></svg></a>
+            </div>
+        </div>
+ 
+        <div class="profile-actions">
+            <!-- Put Manasa_Reddy_CV.pdf in the same folder as this file -->
+            <a href="RESUME.PDF.pdf" download>Download CV <svg class="i"><use href="#i-download"/></svg></a>
+            <button type="button" data-page="contact">Contact Me <svg class="i"><use href="#i-send"/></svg></button>
+        </div>
+    </aside>
+ 
+    <!-- Content -->
+    <main class="panel" id="panel">
+ 
+        <!-- ABOUT -->
+        <div class="page active" id="about">
+            <div class="block">
+                <h2>About Me</h2>
+                <div class="two-col">
+                    <div>
+                        <p><strong>Hello! I'm Manasa Reddy.</strong></p>
+                        <p>I completed my B.Tech in Computer Science Engineering with a specialization in
+                           Data Science. I build web applications and machine learning projects using
+                           Python, JavaScript and React, and I enjoy improving my technical and
+                           communication skills.</p>
+                        <p style="margin-top:10px">I'm looking for an entry-level software developer role
+                           where I can learn and contribute.</p>
+                    </div>
+                    <div>
+                        <div class="info-row"><span class="chip">Degree:</span><span>B.Tech, CSE (Data Science)</span></div>
+                        <div class="info-row"><span class="chip">Graduated:</span><span>2025</span></div>
+                        <div class="info-row"><span class="chip">Location:</span><span>Andhra Pradesh, India</span></div>
+                        <div class="info-row"><span class="chip">Status:</span><span>Open to opportunities</span></div>
+                    </div>
+                </div>
+            </div>
+ 
+            <div class="block">
+                <h2>What I Do</h2>
+                <div class="services">
+                    <div class="service">
+                        <div class="badge"><svg class="i"><use href="#i-code"/></svg></div>
+                        <h3>Web Development</h3>
+                        <p>Responsive websites and web apps with HTML, CSS, JavaScript and React.</p>
+                    </div>
+                    <div class="service">
+                        <div class="badge"><svg class="i"><use href="#i-cpu"/></svg></div>
+                        <h3>Machine Learning</h3>
+                        <p>Prediction and computer vision projects using Python, LSTM and OpenCV.</p>
+                    </div>
+                    <div class="service">
+                        <div class="badge"><svg class="i"><use href="#i-db"/></svg></div>
+                        <h3>Data &amp; SQL</h3>
+                        <p>Working with databases and turning data into useful decisions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+        <!-- EDUCATION -->
+        <div class="page" id="education">
+            <div class="block">
+                <h2>Education</h2>
+ 
+                <div class="entry">
+                    <h3>B.Tech - Computer Science Engineering</h3>
+                    <p class="meta">Malla Reddy Engineering College, Hyderabad | 2021 - 2025</p>
+                    <p>CGPA: 7.53</p>
+                </div>
+ 
+                <div class="entry" style="margin-top:22px">
+                    <h3>Intermediate (MPC) - Telangana State Board</h3>
+                    <p class="meta">Narayana Junior College, Hyderabad | 2019 - 2021</p>
+                    <p>Percentage: 68%</p>
+                </div>
+ 
+                <div class="entry" style="margin-top:22px">
+                    <h3>Secondary Education - Board of Secondary Education, AP</h3>
+                    <p class="meta">Narayana English Medium School, Kurnool | 2018 - 2019</p>
+                    <p>Percentage: 98%</p>
+                </div>
+            </div>
+ 
+            <div class="block">
+                <h2>Certificates</h2>
+                <div class="tags">
+                    <span>Microsoft Azure Fundamentals (AZ-900)</span>
+                    <span>Tutor Campus Certification (C, Python, Java, Data Structures)</span>
+                    <span>Skilltimate Technologies Certification</span>
+                </div>
+            </div>
+        </div>
+ 
+        <!-- SKILLS -->
+        <div class="page" id="skills">
+            <div class="block">
+                <h2>My Skills</h2>
+                <div class="tags">
+                    <span>Python</span>
+                    <span>SQL</span>
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+                    <span>React</span>
+                    <span>Data Structures</span>
+                    <span>OpenCV</span>
+                </div>
+            </div>
+ 
+            <div class="block">
+                <h2>Languages</h2>
+                <div class="tags">
+                    <span>English</span>
+                    <span>Telugu</span>
+                    <span>Hindi</span>
+                </div>
+            </div>
+ 
+            <div class="block">
+                <h2>Interests</h2>
+                <div class="tags">
+                    <span>Badminton</span>
+                    <span>Dancing</span>
+                </div>
+            </div>
+        </div>
+ 
+        <!-- PROJECTS -->
+        <div class="page" id="projects">
+            <div class="block">
+                <h2>My Projects</h2>
+ 
+                <div class="project">
+                    <h3>Loan Eligibility Checking - Dynamic System</h3>
+                    <p>A dynamic system that automates the evaluation process for deciding
+                       whether an individual or business qualifies for a loan.</p>
+                    <div class="tags"><span>Dynamic system</span><span>Automation</span></div>
+                </div>
+ 
+                <div class="project">
+                    <h3>Hand Gesture Controller</h3>
+                    <p>A Python and OpenCV project that recognizes hand gestures.</p>
+                    <div class="tags"><span>Python</span><span>OpenCV</span></div>
+                </div>
+ 
+                <div class="project">
+                    <h3>Stock Price Prediction</h3>
+                    <p>A machine learning project that uses LSTM to predict stock prices.</p>
+                    <div class="tags"><span>Python</span><span>LSTM</span><span>Machine Learning</span></div>
+                </div>
+            </div>
+        </div>
+ 
+        <!-- CONTACT -->
+        <div class="page" id="contact">
+            <div class="block">
+                <h2>Contact Me</h2>
+ 
+                <ul class="contact-list">
+                    <li><svg class="i"><use href="#i-mail"/></svg><a href="mailto:reddymanasa0271@gmail.com">reddymanasa0271@gmail.com</a></li>
+                    <li><svg class="i"><use href="#i-linkedin"/></svg><a href="https://www.linkedin.com/in/mukkamalla-manasa-reddy-b2181527a" target="_blank" rel="noopener">linkedin.com/in/mukkamalla-manasa-reddy</a></li>
+                    <li><svg class="i"><use href="#i-pin"/></svg>Andhra Pradesh, India</li>
+                </ul>
+ 
+                <form onsubmit="sendMessage(event)">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" placeholder="Enter your name" required>
+ 
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+ 
+                    <label for="message">Message</label>
+                    <textarea id="message" rows="4" placeholder="Enter your message" required></textarea>
+ 
+                    <button type="submit">Send message</button>
+                </form>
+                <p id="contactResult" role="status"></p>
+            </div>
+        </div>
+ 
+    </main>
+</div>
+ 
+<script>
+    function showPage(pageId) {
+        document.querySelectorAll(".page").forEach(function (page) {
+            page.classList.toggle("active", page.id === pageId);
+        });
+ 
+        document.querySelectorAll(".sidebar button").forEach(function (btn) {
+            btn.classList.toggle("active", btn.dataset.page === pageId);
+        });
+ 
+        document.getElementById("panel").scrollTop = 0;
+        if (window.innerWidth <= 1000) {
+            document.getElementById(pageId).scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    }
+ 
+    document.querySelectorAll("[data-page]").forEach(function (el) {
+        el.addEventListener("click", function () {
+            showPage(el.dataset.page);
+        });
+    });
+ 
+    async function sendMessage(event) {
+        event.preventDefault();
+        const form = event.target;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const resultEl = document.getElementById("contactResult");
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const message = document.getElementById("message").value.trim();
+
+        resultEl.textContent = "";
+        resultEl.style.color = "";
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Sending…"; }
+
+        try {
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, message })
+            });
+            const data = await res.json();
+            if (res.ok && data.success) {
+                resultEl.textContent = data.message || ("Thank you, " + name + "! Your message has been received.");
+                resultEl.style.color = "#6ba34f";
+                form.reset();
+            } else {
+                resultEl.textContent = data.message || "Something went wrong. Please try again.";
+                resultEl.style.color = "#c0392b";
+            }
+        } catch (err) {
+            resultEl.textContent = "Network error. Please check your connection and try again.";
+            resultEl.style.color = "#c0392b";
+        } finally {
+            if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Send message"; }
+        }
+    }
+</script>
+ 
+</body>
+</html>
